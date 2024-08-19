@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: #fff;
+            padding: 1rem;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        main {
+            padding: 2rem;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Random Website</h1>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="home">
+            <h2>Home</h2>
+            <p>This is the home section of the random website.</p>
+        </section>
+        <section id="about">
+            <h2>About</h2>
+            <p>This section contains information about the website.</p>
+        </section>
+        <section id="services">
+            <h2>Services</h2>
+            <p>Details about the services offered can be found here.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Contact information and form will be placed here.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Random Website. All rights reserved.</p>
+    </footer>
+    <script>
+        let url = 'http://localhost:3000/items';
+
+        async function fetchData(url) {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+
+        // Call the fetchData function and display the data in the desired section
+        fetchData(url)
+            .then(data => {
+                const section = document.getElementById('services');
+                section.innerHTML = `
+                    <h2>Services</h2>
+                    <ul>
+                        ${data.map(item => `<li>${item.name}</li>`).join('')}
+                    </ul>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
